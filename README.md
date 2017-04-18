@@ -6,3 +6,24 @@ Could not open a connection to your authentication agent on trying ssh-add
 The result is agent pid: 
 sample: [ec2-user@ip-XXX-XX-X-XXX tmp]$ eval `ssh-agent -s`
 Agent pid 22955
+VPC private instance cannot access Internet
+I had following ACLs:
+
+Private subnet ACL 
+Inbound
+100	80 (HTTP)	TCP	0.0.0.0/0	ALLOW	Delete
+110	443 (HTTPS)	TCP	0.0.0.0/0	ALLOW	Delete
+120	22 (SSH)	TCP	10.0.0.0/24	ALLOW	Delete
+140	1024 - 65535	TCP	10.0.0.0/24	ALLOW	Delete
+ALL	ALL	0.0.0.0/0	DENY
+
+Outbound
+100	80 (HTTP)	TCP	0.0.0.0/0	ALLOW	Delete
+110	443 (HTTPS)	TCP	0.0.0.0/0	ALLOW	Delete
+120	49152 - 65535	TCP	10.0.0.0/24	ALLOW	Delete
+140	1024 - 65535	TCP	10.0.0.0/24	ALLOW	Delete
+ALL	ALL	0.0.0.0/0	DENY	
+
+Based on above rules I see NAT is receiving packets from private instance, but private instance is not receiving packets back.
+
+After adding Rule#150 "150	ALL	TCP	0.0.0.0/0	ALLOW" on inbound/outbound, my private instance can access internet.
