@@ -79,6 +79,8 @@ s3cmd ls s3://$1 | while read -r line;
     
   done;
   
+   aws s3api list-objects --bucket "<bucketname>" --query 'Contents[?LastModified>=`2017-05-24`][].{Key: Key}'
+  
 
 
 
