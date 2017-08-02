@@ -79,7 +79,12 @@ s3cmd ls s3://$1 | while read -r line;
     
   done;
   
-   aws s3api list-objects --bucket "<bucketname>" --query 'Contents[?LastModified>=`2017-05-24`][].{Key: Key}'
+   aws s3api list-objects --bucket "bucketname" --query 'Contents[?LastModified>=`2017-05-24`][].{Key: Key}'
+ 
+ To add server side encryption to file at rest in AWS s3 bucket.
+ 
+ aws s3 cp s3://bucketname/filename s3://bucketname/filename --sse
+ 
   
 
 
