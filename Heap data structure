@@ -1,0 +1,6 @@
+Hieght of a Heap  having N elements
+floor (logN)+1 or ceiling of Log(N+1) -1
+
+Heap can be conceptualized using array. First leaf node occurs at floor(log N/2) +1 and rest of elements in array are also leaf nodes.
+Reference : https://www.geeksforgeeks.org/leaf-starting-point-binary-heap-data-structure/
+
